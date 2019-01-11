@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  bdo:
+    build: .
+    tty: true
+    entrypoint: ["bash"]
+    volumes:
+      - .:/bdo
