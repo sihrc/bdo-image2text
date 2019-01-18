@@ -4,6 +4,8 @@ services:
   bdo:
     build: .
     tty: true
-    entrypoint: ["bash"]
+    entrypoint: ["python3", "-m", "bdo.app"]
+    ports:
+      - 0.0.0.0:8080:8080
     volumes:
       - .:/bdo
