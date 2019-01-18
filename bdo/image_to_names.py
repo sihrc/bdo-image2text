@@ -9,6 +9,8 @@ from PIL import Image
 
 import re
 
+TESS_CONFIG = "--oem 1 -c tessedit_char_whitelist=\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\""
+
 from bdo.download import get_content_from_url
 
 user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46'
@@ -22,11 +24,11 @@ def url_to_image(url):
 
 def main(url):
     image = url_to_image(url)
-    iamge = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    ret, image = cv2.threshold(image, 40, 255, cv2.THRESH_BINARY)
 
-    ret, image = cv2.threshold(image, 60, 255, cv2.THRESH_BINARY)
     image = 255 - image
-    string = pytesseract.image_to_string(image, lang="eng")
+    string = pytesseract.image_to_string(image, lang="eng", config=TESS_CONFIG)
     lines = [re.sub(r'[\(\{][^)^}]*[\)\}]', '', line).strip() for line in string.split("\n") if line]
     return lines
 
