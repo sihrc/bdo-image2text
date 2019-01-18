@@ -9,5 +9,5 @@ Maintained by: Chris Lee [sihrc.c.lee@gmail.com]
 - Tests are located in ./tests <br>
 - To run the docker container with the basic requirements, dependencies, and the package installed:
     ```bash
-    $ ./docker/run_docker.sh
+    $ docker-compose up --build
     ```
